@@ -1,0 +1,13 @@
+pm install serverless-localstack
+
+desplegar
+serverless deploy --stage local
+
+listar los buckets
+aws --endpoint-url=http://localhost:4566 s3 ls 
+
+crear un bucket llamado my-serverless-bucket
+aws --endpoint-url=http://localhost:4566 s3 mb s3://my-serverless-bucket
+
+configurando url mas amigables
+npm install serverless-offline --save-dev

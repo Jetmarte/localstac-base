@@ -1,0 +1,59 @@
+service: curso
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: local
+  apiGateway:
+    minimumCompressionSize: 1024  # Habilitar compresión para respuestas mayores a 1 KB
+    shouldStartNameWithService: true
+plugins:
+  - serverless-localstack
+  - serverless-offline
+  - serverless-dotenv-plugin
+custom:
+  localstack:
+    stages:
+      - local
+    edgePort: 4566
+resources:
+  Resources:
+    MyS3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: my-serverless-bucket
+    ApiGatewayRestApi:
+      Properties:
+        Name: MyCustomApi  
+
+package:
+  exclude:
+    -.env 
+    - tokens/**
+    - secrets.json
+
+# *************
+#   Functions
+# *************
+functions:
+  health:
+    handler: src/controllers/handler/handler.getHello
+    events:
+      - http:  
+          path: health 
+          method: get
+          cors: true
+          authorizer: aws_iam
+  
+  health-postgres:
+    handler: db/connect.connectPostgres
+    events: 
+      - http:  # Corregir la indentación aquí
+          path: healthPostgres
+          method: get
+          cors: true
+          authorizer: aws_iam
+      
+ 
