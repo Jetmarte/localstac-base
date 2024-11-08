@@ -5,13 +5,12 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: parseInt(process.env.DB_PORT, 10) // Asegúrate de convertir el puerto a número
+  port: parseInt(process.env.DB_PORT, 10)
 });
-
 module.exports.connectPostgres = async () => {
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT NOW()');  // Ejemplo de consulta fecha actual
+    const result = await client.query('SELECT NOW()');
     client.release();
     return {
       statusCode: 200,

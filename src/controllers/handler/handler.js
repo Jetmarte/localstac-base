@@ -12,7 +12,6 @@ exports.getHello = async (event) => {
       2
     ),
   };
-
 };
 
 

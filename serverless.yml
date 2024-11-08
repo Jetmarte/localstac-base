@@ -6,9 +6,11 @@ provider:
   name: aws
   runtime: nodejs18.x
   stage: local
+  profile: project1
   apiGateway:
     minimumCompressionSize: 1024  # Habilitar compresión para respuestas mayores a 1 KB
     shouldStartNameWithService: true
+
 plugins:
   - serverless-localstack
   - serverless-offline
@@ -56,4 +58,20 @@ functions:
           cors: true
           authorizer: aws_iam
       
- 
+  health-supabase:
+    handler: src/controllers/handler/handlerSupabase.getData
+    events: 
+      - http:  # Corregir la indentación aquí
+          path: healthsupabase
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  will:
+    handler: src/controllers/handler/will.createWill
+    events: 
+      - http:  # Corregir la indentación aquí
+          path: will
+          method: post 
+          cors: true
+          authorizer: aws_iam
