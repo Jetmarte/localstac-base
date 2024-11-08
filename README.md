@@ -14,7 +14,7 @@ In file .aws/credentials
 [project1] 
 aws_access_key_id = 123 
 aws_secret_access_key = 123
-(---)
+---
 in file .aws/config
 
 [default] 
