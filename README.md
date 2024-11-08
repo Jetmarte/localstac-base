@@ -21,3 +21,4 @@ in file .aws/config
 region = us_west-2 
 output = json
 ```
+### Run with run-offline.bash
